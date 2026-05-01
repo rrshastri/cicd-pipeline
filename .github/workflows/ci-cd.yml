@@ -16,32 +16,32 @@ jobs:
        uses: actions/setup-python@v5 
        with: 
          python-version: "3.13" 
-         
-	 - name: Install deps
-	   run:
-	    python -m pip install --upgrade pip
-	    pip install -r requirements.txt
+        
+     - name: Install deps
+       run:
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
 
-	 - name: Run tests 
-	   run: pytest -q 
+     - name: Run tests 
+       run: pytest -q 
 
-	 - name: set up QEMU 
-	   uses: docker/setup-qemu-action@v3 
+     - name: set up QEMU 
+       uses: docker/setup-qemu-action@v3 
 	
-	 - name: Set up Docker Buildx 
-	   uses: docker/setup-buitdx-action@v3 
+     - name: Set up Docker Buildx 
+       uses: docker/setup-buitdx-action@v3 
 
-	 - name: Login to Docker Hub 
-	   uses: docker/togin-action@v3 
-	   with: 
-		username: ${{ secrets .DOCKERHUB_USERNAME }}
-	    password: ${{ secrets .DOCKERHUB_TOKEN }}
+     - name: Login to Docker Hub 
+       uses: docker/togin-action@v3 
+       with: 
+        username: ${{ secrets .DOCKERHUB_USERNAME }}
+        password: ${{ secrets .DOCKERHUB_TOKEN }}
 
-	 - name: Build and push (Docker Hub)
-	   uses: docker/buiId-push-action@V6 
-	   with: 
-	    context: . 
-		push: true 
-		tags: I 
-		  ${{ secrets. DOCKERHUB_USERNAME }}/flask-app-utcli:latest
-		  ${{ secrets. DOCKERHUB_USERNAME }}/flask-app-utcli:${{ github.sha }}
+     - name: Build and push (Docker Hub)
+       uses: docker/buiId-push-action@V6 
+       with: 
+        context: . 
+        push: true 
+        tags: I 
+          ${{ secrets. DOCKERHUB_USERNAME }}/flask-app-utcli:latest
+          ${{ secrets. DOCKERHUB_USERNAME }}/flask-app-utcli:${{ github.sha }}
